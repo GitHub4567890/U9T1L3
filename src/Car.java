@@ -20,11 +20,10 @@ public class Car extends Vehicle {
     this.discountApplied = discountApplied;
   }
 
-  public void printCar() {
-    System.out.println("Car license plate: " + super.getLicensePlate());
-    System.out.println("Car toll fee: " + super.getTollFee());
-    System.out.println("Car number of passengers: " + super.getPassengers());
-    System.out.println("Car electric: " + electric);
+  @Override
+  public void printInfo() {
+    super.printInfo();
+    System.out.println("Electric: " + electric);
     System.out.println("Discount applied: " + discountApplied);
   }
 
@@ -41,6 +40,15 @@ public class Car extends Vehicle {
     if (!discountApplied && electric) {
       super.setTollFee(super.getTollFee() / 2);
       discountApplied = true;
+    }
+  }
+
+  @Override
+  public double calculateTollPrice() {
+    if (getPassengers() <= 4) {
+      return super.calculateTollPrice();
+    } else {
+      return getTollFee() * 4;
     }
   }
 

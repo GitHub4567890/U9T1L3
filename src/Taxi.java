@@ -1,5 +1,6 @@
 public class Taxi extends Car {
     double fareCollected;
+    boolean signLight;
 
     public Taxi(String licensePlate, double tollFee, int passengers, boolean electric, double fareCollected) {
         super(licensePlate, tollFee, passengers, electric);
@@ -10,11 +11,10 @@ public class Taxi extends Car {
         return fareCollected;
     }
 
-    public void printTaxi() {
-        System.out.println("Taxi license plate: " + super.getLicensePlate());
-        System.out.println("Taxi toll fee: " + super.getTollFee());
-        System.out.println("Taxi number of passengers: " + super.getPassengers());
-        System.out.println("Taxi electric: " + super.isElectric());
+    @Override
+    public void printInfo() {
+        super.printInfo();
+        System.out.println("Electric: " + super.isElectric());
         System.out.println("Discount applied: " + super.isDiscountApplied());
         System.out.println("Fare collected: " + fareCollected);
     }
@@ -32,4 +32,18 @@ public class Taxi extends Car {
         fareCollected += farePerRider * numRiders;
         applyDiscount();
     }
+
+    public boolean chargeAndDropOffRiders (double farePerRider) {
+        fareCollected += (getPassengers() - 1) * farePerRider;
+        return dropOffPassengers(getPassengers() - 1);
+    }
+
+    @Override
+    public boolean lights(boolean onOffHL) {
+        super.lights(onOffHL);
+        signLight = onOffHL;
+        return signLight;
+    }
+
+
 }
